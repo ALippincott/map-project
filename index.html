@@ -4,9 +4,10 @@
 		<meta charset = utf-8>
 		<title>Neighborhood Map Project</title>
 		<script type='text/javascript' src='knockout-3.4.2.js'></script>
-		 <script type='text/javascript' src='js/main.js'></script>
-		 <script async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCtlxQi9MDmEeLx2lvCu2z97CbFn4c3qvk&callback=initMap"></script>
-		
+		<script type='text/javascript' src='js/main.js'></script>
+		<script async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCtlxQi9MDmEeLx2lvCu2z97CbFn4c3qvk&callback=initMap"></script>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/styles.css" rel="Stylesheet">
 	 </head>
 
 
@@ -15,6 +16,16 @@
 			html, body { height: 100%; }
 			#map { height: 100%; }
 		</style>
+		<nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">Neighborhood Map Project</a>
+		    </div>
+		    <ul class="nav navbar-nav">
+		      <li class="active"><a href="#">List</a></li>
+		    </ul>
+		  </div>
+		</nav>
 		<div id="map"></div>
 
 		<script>
