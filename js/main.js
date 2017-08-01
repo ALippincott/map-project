@@ -17,3 +17,8 @@ function initMap() {
 		{lat: 40.42146014031933, lng: -86.90384566783905}
 	];
 }
+
+$('.menu-toggle').click(function() {
+	$('ul').toggleClass('opening');
+	$(this).toggleClass('open');
+})
