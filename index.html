@@ -19,60 +19,34 @@
 			 overflow-x: hidden;
 			 overflow-y: hidden;
 			}
-			#map { height: 100%; }
+			#map { height: 95%; 
+					
+			}
 		</style>
-		 <nav class="site-nav">
-		 	<div class="menu-toggle">
-		 		<div class="hamburger"></div>
-		 	</div>
-		 
-		 	<ul class="open-desktop">
-		 		<li><a href="#!">Basil Thai</a></li>
-		 		<li><a href="#!">Chipotle</a></li>
-		 		<li><a href="#!">Blue Nile</a></li>
-		 		<li><a href="#!">Maru</a></li>
-		 		<li><a href="#!">Town and Gown</a></li>
-		 		<li><a href="#!">Nine Irish Brothers Pub</a></li>
-		 		<li><a href="#!">Oishi</a></li>
-		 	</ul>
-		 </nav>
-<script src="jquery-3.2.1.min.js"></script>
+		<nav role="navigation">
+			<div id="menuToggle">
+				<input type="checkbox"/>
 
-    <script src="js/main.js"></script>
+				<span></span>
+				<span></span>
+				<span></span>
+				
+				<ul id="menu">
+					<a href="#"><li>Home</li></a>
+					<a href="#"><li>Button</li></a>
+					<a href="#"><li>testy</li></a>
+					<a href="#"><li>test</li></a>
+				</ul>
+			</div>
+		</nav>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-debug.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js"></script>
 		
 		<div id="map"></div>
 
-		<script>
-		      var map;
-		      function initMap() {
-		        // Constructor creates a new map - only center and zoom are required.
-		       map = new google.maps.Map(document.getElementById('map'), {
-				center: {lat: 40.423218239442186, lng: -86.90529674291611},
-				zoom: 17
-			  });
-				//array holding the location data
-				var locations = [
-					{lat: 40.422848654474635, lng: -86.90782070159912},
-					{lat: 40.42362457637239, lng: -86.9071501493454},
-					{lat: 40.4245270847936, lng: -86.90841615200043},
-					{lat: 40.42450258246246, lng: -86.90679609775543},
-					{lat: 40.42286090594257, lng: -86.90416753292084},
-					{lat: 40.422909911791955, lng: -86.90318048000336},
-					{lat: 40.42146014031933, lng: -86.90384566783905}
-				];
-				var locationTitles = [
-					"Basil Thai", "Chipotle", "Blue Nile", "Maru", "Town & Gown", "Nine Irish Brothers", "Oishi"
-				]
-				for(i=0;i<7;i++){
-					var marker = new google.maps.Marker({
-						position: locations[i],
-						map: map,
-						title: locationTitles[i]
-					});
-				}
-		      }
-		    </script>
-
+	<script type="text/javascript" src='js/main.js'></script>
 		  
 
 	</body>

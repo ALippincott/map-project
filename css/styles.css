@@ -1,248 +1,143 @@
-* {
-    box-sizing: border-box;
-}
-
-body {
-  background: #F6F4E2;
-  font-family: 'Titillium Web', sans-serif;
-  letter-spacing: 1px;
-}
-
-.wrapper {
-  width: 100%;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-
-/*
-.container {
-  max-width: 960px;
-  width: 95%;
-  margin: 0 auto;
-}
-
-header {
-  background: #f04343;
-  color: #f7e9cc;
-  padding: 1.5em 0;
-  position: relative;
-}
-
-/*header::after {
-  content: '';
-  clear: both;
-  display: block;
-}*/
-
-
-.logo {
-  color: #fff;
-  font-size: 1rem;
+body
+{
   margin: 0;
-  padding-top: 24px;
-  padding-left: 20px;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 3px;
-  height: 65px;
-  background-color: #f04343;
+  padding: 0;
+  
+  
+  background: #232323;
+  color: #cdcdcd;
+  font-family: "Avenir Next", "Avenir", sans-serif;
 }
 
-.logo span {
-  font-weight: 400;
-}
-
-.menu-toggle {
-  position: absolute;
-  padding: 0.8em;
-  top: 1em;
-  right: .5em;
-  cursor: pointer;
-}
-
-.hamburger,
-.hamburger::before,
-.hamburger::after {
-  content: '';
-  display: block;
-  background: #EBEBD3;
-  height: 3px;
-  width: 2em;
-  border-radius: 3px;
-  -webkit-transition: all ease-in-out 350ms;
-  transition: all ease-in-out 350ms;
-}
-
-.hamburger::before {
-  -webkit-transform: translateY(-7px);
-          transform: translateY(-7px);
-}
-
-.hamburger::after {
-  -webkit-transform: translateY(4px);
-          transform: translateY(4px);
-}
-
-.open .hamburger {
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
-}
-
-.open .hamburger::before {
-  display: none;
-}
-
-.open .hamburger::after {
-  -webkit-transform: translateY(-1px) rotate(-90deg);
-          transform: translateY(-1px) rotate(-90deg);
-}
-
-/*.site-nav--open {
-  -webkit-clip-path: circle(150% at top right);
-          clip-path: circle(150% at top right);
-}
-*/
-
-
-
-
-
-nav {
-    margin: 0;
-    padding: 0;
-}
-
-nav ul {
-    display: flex;
-    flex-direction: column;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: none;
-}
-
-nav ul.opening {
-    display: block;
-    height: 30px;
-}
-
-nav li {
-  border-bottom: 1px solid #f6f4e2;
-}
-nav li:last-child {
-  border-bottom: none;
-}
-nav a {
-  color: #EBEBD3;
-  background: #333;
-  display: block;
-  padding: 1.5em 4em 1.5em 3em;
-  text-transform: uppercase;
+a
+{
   text-decoration: none;
+  color: #232323;
+  
+  transition: color 0.3s ease;
 }
 
-nav a:hover,
-nav a:focus {
-  background: #E4B363;
+a:hover
+{
+  color: tomato;
+}
+#floating-panel {
+            position: absolute;
+            top: 10px;
+            left: 5%;
+            z-index: 5;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #999;
+            text-align: center;
+            font-family: 'Roboto','sans-serif';
+            line-height: 30px;
+            padding-left: 10px;
+        }
+#menuToggle
+{
+  display: block;
+  position: relative;
+  top:0px;
+  left:25px;
+  
+  z-index: 1;
+  
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-.site-nav--icon {
-  font-size: 1.4em;
-  margin-right: 1em;
-  width: 1.1em;
-  text-align: right;
-  color: rgba(255,255,255,.4);
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  
+  cursor: pointer;
+  
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  
+  -webkit-touch-callout: none;
 }
-
-/* flex styles */
-
 
 /*
-nav {
-  width: 100%;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #e7a119;
-  -webkit-clip-path: circle(0px at top left);
-          clip-path: circle(0px at top left);
-  -webkit-transition: -webkit-clip-path ease-in-out 700ms;
-  transition: -webkit-clip-path ease-in-out 700ms;
-  transition: clip-path ease-in-out 700ms;
-  transition: clip-path ease-in-out 700ms, -webkit-clip-path ease-in-out 700ms;
-  text-align: left;
+ * Just a quick hamburger
+ */
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: #cdcdcd;
+  border-radius: 3px;
+  
+  z-index: 1;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
 }
-*/
+
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#menuToggle input:checked ~ span
+{
+  background-color: #232323;
+}
 
 
+#menu
+{
+  position: absolute;
+  width: 300px;
+  margin: -100px 0 0 -50px;
+  padding: 50px;
+  padding-top: 125px;
+  
+  background: #ededed;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
 
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+}
 
-
-
-
-@media (min-width: 780px) {
-
-  .menu-toggle {
-    display: none;
-  }
-
-
-
-  nav ul {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-  nav li {
-     flex: 1 1 auto;
-     border: none;
- }
-
-   nav li a {
-       padding: 1.5em 1.3em 1.5em 1.3em;
-       margin: 0;
-       border: none;
-       background-color: #f04343;
-    }
-    nav a:hover,
-    nav a:focus {
-      background-color: rgba(255,255,255,.10);
-    }
-
-
-
-  .logo {
-      flex: 0 0 200px;
-      margin: 0;
-      padding-left: 20px;
-  }
-
-
-    nav {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-
-      text-align: center;
-      background-color: #f04343;
-    }
-  /* nav {
-      flex: 1 1 0;
-      -webkit-clip-path: none;
-            clip-path: none;
-
-      border: 3px solid purple;
-  }
-*/
-
-  /*.site-nav a:hover,
-  .site-nav a:focus {
-    background: transparent;
-  }
-*/
-  .site-nav--icon {
-    display: none;
-  }
-
+/*
+ * And let's fade it in from the left
+ */
+#menuToggle input:checked ~ ul
+{
+  transform: scale(1.0, 1.0);
+  opacity: 1;
 }
