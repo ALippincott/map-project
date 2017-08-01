@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = utf-8>
+		<title>Neighborhood Map Project</title>
+		<script type='text/javascript' src='knockout-3.4.2.js'></script>
+		 <script type='text/javascript' src='js/main.js'></script>
+		 <script async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCtlxQi9MDmEeLx2lvCu2z97CbFn4c3qvk&callback=initMap"></script>
+		
+	 </head>
+
+
+	<body>
+		<style>
+			html, body { height: 100%; }
+			#map { height: 100%; }
+		</style>
+		<div id="map"></div>
+
+		<script>
+		      var map;
+		      function initMap() {
+		        // Constructor creates a new map - only center and zoom are required.
+		       map = new google.maps.Map(document.getElementById('map'), {
+				center: {lat: 40.423218239442186, lng: -86.90529674291611},
+				zoom: 17
+			  });
+				//array holding the location data
+				var locations = [
+					{lat: 40.422848654474635, lng: -86.90782070159912},
+					{lat: 40.42362457637239, lng: -86.9071501493454},
+					{lat: 40.4245270847936, lng: -86.90841615200043},
+					{lat: 40.42450258246246, lng: -86.90679609775543},
+					{lat: 40.42286090594257, lng: -86.90416753292084},
+					{lat: 40.422909911791955, lng: -86.90318048000336},
+					{lat: 40.42146014031933, lng: -86.90384566783905}
+				];
+				var locationTitles = [
+					"Basil Thai", "Chipotle", "Blue Nile", "Maru", "Town & Gown", "Nine Irish Brothers", "Oishi"
+				]
+				for(i=0;i<7;i++){
+					var marker = new google.maps.Marker({
+						position: locations[i],
+						map: map,
+						title: locationTitles[i]
+					});
+				}
+		      }
+		    </script>
+
+		  
+
+	</body>
+</html>
