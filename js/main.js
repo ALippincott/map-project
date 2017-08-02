@@ -52,7 +52,7 @@ var koViewModel = function(map, locationList) {
 	}
 };
 
-function createMap() {
+function initMap() {
 	return new google.maps.Map(document.getElementById('map'), {
 		center: {
 			lat: 40.423218239442186,
@@ -105,6 +105,6 @@ google.maps.event.addDomListener(window, 'load', function() {
 			lng: -86.90384566783905
 		}
 	}];
-	var googleMap = createMap();
+	var googleMap = initMap();
 	ko.applyBindings(new koViewModel(googleMap, locationList));
 });
