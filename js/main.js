@@ -5,8 +5,17 @@ var koViewModel = function(map, locationList) {
 	var self = this;
 	self.googleMap = map;
 	self.allPlaces = [];
-	var location = ko.observableArray();
-	location.push('Basil Thai','Chipotle','Blue Nile','Maru','Town and Gown','Nine Irish Brothers','Oishi');
+
+	self.locations = ko.observableArray([
+	{name: 'Basil Thai', latLng: {lat: 40.422848654474635,lng: -86.90782070159912}},
+	{name: 'Chipotle', latLng: {lat: 40.42362457637239,lng: -86.9071501493454}},
+	{name: 'Blue Nile', latLng: {lat: 40.4245270847936,lng: -86.90841615200043}},
+	{name: 'Maru', latLng: {lat: 40.42450258246246,lng: -86.90679609775543}}, 
+	{name: 'Town and Gown', latLng: {lat: 40.42286090594257,lng: -86.90416753292084}}, 
+	{name: 'Nine Irish Brothers', latLng: {lat: 40.422909911791955,Lng: -86.90318048000336}},
+	{name: 'Oishi', latLng: {lat: 40.42146014031933,lng: -86.90384566783905}}
+	]);
+
 	locationList.forEach(function(place) {
 		self.allPlaces.push(new Place(place));
 	});
@@ -66,6 +75,7 @@ function initMap() {
 	});
 }
 
+
 google.maps.event.addDomListener(window, 'load', function() {
 	var locationList = [
 	{name: 'Basil Thai', latLng: {lat: 40.422848654474635,lng: -86.90782070159912}},
@@ -78,7 +88,7 @@ google.maps.event.addDomListener(window, 'load', function() {
 	];
 
 	var googleMap = initMap();
-	ko.applyBindings(koViewModel(googleMap, locationList));
+	ko.applyBindings( new koViewModel(googleMap, locationList));
 
 	
 });
