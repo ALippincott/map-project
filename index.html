@@ -33,8 +33,8 @@
 				<span></span>
 				<span></span>
 				
-				<ul id="menu" data-bind="foreach: locations().name">
-					<li data-bind="text: $data"></li>
+				<ul id="menu" data-bind="foreach: visiblePlaces">
+					<a href="#"><li data-bind="text: name"></li></a>
 				</ul>
 				
 
