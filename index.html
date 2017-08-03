@@ -25,14 +25,25 @@
 					
 			}
 		</style>
+		<nav role="navigation">
+			<div id="menuToggle">
+				<input type="checkbox"/>
+
+				<span></span>
+				<span></span>
+				<span></span>
+				
+				<ul id="menu" data-bind="foreach: locations().name">
+					<li data-bind="text: $data"></li>
+				</ul>
+				
+
+			</div>
+		</nav>				
+		<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		
-				<p>Select Location:
-				<select data-bind="options: location"></select>
-				</p>				
-		<script async src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		
-		<script async src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-debug.js"></script>
-		<script async src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js"></script>
+		<script  src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-debug.js"></script>
+		<script  src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js"></script>
 		
 		<div id="map"></div>
 
