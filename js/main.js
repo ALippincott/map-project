@@ -5,9 +5,12 @@ var koViewModel = function(map, locationList) {
 	var self = this;
 	self.googleMap = map;
 	self.allPlaces = [];
+	var location = ko.observableArray();
+	location.push('Basil Thai','Chipotle','Blue Nile','Maru','Town and Gown','Nine Irish Brothers','Oishi');
 	locationList.forEach(function(place) {
 		self.allPlaces.push(new Place(place));
 	});
+	
 	self.allPlaces.forEach(function(place) {
 		
 		var markerOptions = {
@@ -25,9 +28,7 @@ var koViewModel = function(map, locationList) {
 		});
 		
 	});
-	self.allPlaces.forEach(function(place) {
-		ko.applyBindings(location: place.name)
-	});
+	
 
 	 self.visiblePlaces = ko.observableArray();
 	 self.allPlaces.forEach(function(place) {
@@ -55,7 +56,7 @@ var koViewModel = function(map, locationList) {
 	}
 };
 
-function CreateMap() {
+function initMap() {
 	return new google.maps.Map(document.getElementById('map'), {
 		center: {
 			lat: 40.423218239442186,
@@ -64,6 +65,7 @@ function CreateMap() {
 		zoom: 17
 	});
 }
+
 google.maps.event.addDomListener(window, 'load', function() {
 	var locationList = [
 	{name: 'Basil Thai', latLng: {lat: 40.422848654474635,lng: -86.90782070159912}},
@@ -74,8 +76,9 @@ google.maps.event.addDomListener(window, 'load', function() {
 	{name: 'Nine Irish Brothers',latLng: {lat: 40.422909911791955,Lng: -86.90318048000336}},
 	{name: 'Oishi',latLng: {lat: 40.42146014031933,lng: -86.90384566783905}}
 	];
-	var googleMap = CreateMap();
-	ko.applyBindings(new koViewModel(googleMap, locationList));
+
+	var googleMap = initMap();
+	ko.applyBindings(koViewModel(googleMap, locationList));
 
 	
 });
