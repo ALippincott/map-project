@@ -142,3 +142,9 @@ a:hover
   transform: scale(1.0, 1.0);
   opacity: 1;
 }
+
+.input {
+  margin-right: 10px;
+  float: right
+
+}

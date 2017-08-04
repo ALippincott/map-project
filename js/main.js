@@ -5,6 +5,7 @@ function Place(locationList) {
 	}
 var googleMap;
 var locations = [];
+var markers = [];
 var locationList = [
 	{name: 'Basil Thai', latLng: {lat: 40.422848654474635,lng: -86.90782070159912}},
 	{name: 'Chipotle',latLng: {lat: 40.42362457637239,lng: -86.9071501493454}},
@@ -17,13 +18,7 @@ var locationList = [
 locationList.forEach(function(place) {
 		locations.push(new Place(place));
 	});
-var marker = new google.maps.Marker({
-            map: map,
-            position: place.latLng,
-            name: place.name ,
-            animation: google.maps.Animation.DROP,
-            id: i
-          });
+
 function populateInfoWindow(marker, infowindow) {
         // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker != marker) {
@@ -36,18 +31,16 @@ function populateInfoWindow(marker, infowindow) {
           });
       }
   }
+
 //View Model
 var koViewModel = function(map, locationList) {
 	var self = this;
 	self.allPlaces = locations;	
 	//Creates seperate visible array for list
 	 self.visiblePlaces = ko.observableArray();
-	 self.allPlaces.forEach(function(place) {
-	 	self.visiblePlaces.push(place);
-	 });
+	 
 	 var markerOptions;
 	 var infowindow = [];
-	 var markers = [];
 	 var largeInfowindow = new google.maps.InfoWindow();
 	 self.visiblePlaces().forEach(function(place){
 	 	markerOptions = {
@@ -57,31 +50,37 @@ var koViewModel = function(map, locationList) {
 			};
 			place.marker = new google.maps.Marker(markerOptions);
 			markers.push(place.marker);
-			infowindow = new google.maps.InfoWindow({
-				content: place.name
-
-			});
-			place.marker.addListener('click', function() {
-				populateInfoWindow(this, largeInfowindow);
-			});
-			console.log(place.name);
+			
+			
 		});
 		
 	
+for (var i = 0; i < locations.length; i ++){
+	var marker = new google.maps.Marker({
+        map: googleMap,
+        position: locations[i].latLng,
+        name: locations[i].name,
+        animation: google.maps.Animation.DROP
+    });
+   // console.log(i);
+	
+	
+	markers.push(marker);	
+	marker.addListener('click', function() {
+				populateInfoWindow(this, largeInfowindow);
+			});
+}
 
 	 //Takes in input and handles filtering
-	 // self.userInput = ko.observable('');
-	 // self.filterMarkers = function() {
-	 // 	var searchInput = self.userInput().toLowerCase();
-	 // 	self.visiblePlaces.removeAll();
-	 // 	self.allPlaces.forEach(function(place) {
-	 // 		place.marker.setMap();
-		// if (place.name.toLowerCase().indexOf(searchInput) !== -1) {
-		// 		self.visiblePlaces.push(place);
-		// 	}
-		// });
-		
-		
+	 self.attemptedValue = ko.pureComputed({
+	 	read: "",
+	 	write: function(){
+	 		self.allPlaces.forEach(function(place) {
+	 			self.visiblePlaces.push(place);
+			});
+	 	}
+	 })
+			
 	};
 	
 

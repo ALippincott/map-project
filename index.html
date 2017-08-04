@@ -3,7 +3,7 @@
 	<head>
 		<meta charset = utf-8>
 		<title>Neighborhood Map Project</title>
-		<script  src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCtlxQi9MDmEeLx2lvCu2z97CbFn4c3qvk" type='text/javascript'></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCtlxQi9MDmEeLx2lvCu2z97CbFn4c3qvk" type='text/javascript'></script>
 		<script async type='text/javascript' src='knockout-3.4.2.js'></script>
 		<script async type='text/javascript' src='js/main.js'></script>
 		
@@ -26,17 +26,19 @@
 			}
 		</style>
 		<nav role="navigation">
+			<input class="input" type='text' name="searchInput" value="Search" data-bind="textInput: attemptedValue"/>
 			<div id="menuToggle">
-				<input type="checkbox"/>
+				<input type="checkbox">
 
 				<span></span>
 				<span></span>
 				<span></span>
+
 				
 				<ul id="menu" data-bind="foreach: visiblePlaces">
 					<a href="#"><li data-bind="text: name"></li></a>
 				</ul>
-				
+			
 
 			</div>
 		</nav>				
