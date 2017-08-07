@@ -12,15 +12,12 @@ body
 a
 {
   text-decoration: none;
-  color: #232323;
+  color: black;
   
   transition: color 0.3s ease;
 }
 
-a:hover
-{
-  color: tomato;
-}
+
 #floating-panel {
             position: absolute;
             top: 10px;
@@ -58,14 +55,14 @@ a:hover
   
   cursor: pointer;
   
-  opacity: 0; /* hide this */
-  z-index: 2; /* and place it over the hamburger */
+  opacity: 0; 
+  z-index: 2; 
   
   -webkit-touch-callout: none;
 }
 
 /*
- * Just a quick hamburger
+ * hamburger
  */
 #menuToggle span
 {
@@ -98,10 +95,7 @@ a:hover
   transform-origin: 0% 100%;
 }
 
-/* 
- * Transform all the slices of hamburger
- * into a crossmark.
- */
+
 #menuToggle input:checked ~ span
 {
   background-color: #232323;
@@ -119,7 +113,6 @@ a:hover
   background: #ededed;
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
-  /* to stop flickering of text in safari */
   
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
@@ -134,9 +127,7 @@ a:hover
   font-color: black;
 }
 
-/*
- * And let's fade it in from the left
- */
+
 #menuToggle input:checked ~ ul
 {
   transform: scale(1.0, 1.0);
