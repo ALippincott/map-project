@@ -1,7 +1,7 @@
 function Place(locationList) {
 	this.name = locationList.name;
 	this.latLng = locationList.latLng;
-	this.tag = locationList.tag
+	this.tag = locationList.tag;
 	this.marker = null;
 }
 
@@ -35,7 +35,8 @@ $.ajax({
 			HTMLinfoWindow = HTMLinfoWindow.replace('%data%', url);
 		}
 	}
-})
+});
+//Creates Info Windows
 function populateInfoWindow(marker, infowindow) {
 	// Check to make sure the infowindow is not already opened on this marker.
 	if (infowindow.marker != marker) {
@@ -68,6 +69,7 @@ var koViewModel = function(map, locationList) {
 	var markerOptions;
 	var infowindow = [];
 	var largeInfowindow = new google.maps.InfoWindow();
+	//Creates marker and pushes it to the markers array
 	self.visiblePlaces().forEach(function(place) {
 		markerOptions = {
 			map: googleMap,
@@ -109,7 +111,7 @@ var koViewModel = function(map, locationList) {
 				if(!self.allPlaces[i].name.includes(filter)) {
 					self.visiblePlaces.pop(self.allPlaces[i]);
 				}
-			};
+			}
 		}
 
 	});
