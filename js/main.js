@@ -44,7 +44,9 @@ var koViewModel = function(map, locationList) {
 	var filter;
 	//Creates seperate visible array for list
 	self.visiblePlaces = ko.observableArray();
-
+	for(i=0;i<locations.length;i++){
+		self.visiblePlaces.push(locations[i]);
+	}
 	var markerOptions;
 	var infowindow = [];
 	var largeInfowindow = new google.maps.InfoWindow();
@@ -83,8 +85,8 @@ var koViewModel = function(map, locationList) {
 		read: self.valueFake,
 		write: function(value) {
 			for(i = 0; i < self.allPlaces.length; i++){
-				if(self.allPlaces[i].name.includes(filter)) {
-					console.log("yes");
+				if(!self.allPlaces[i].name.includes(filter)) {
+					self.visiblePlaces.pop(self.allPlaces[i]);
 				}
 			};
 		}
