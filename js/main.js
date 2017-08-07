@@ -1,30 +1,48 @@
 function Place(locationList) {
 	this.name = locationList.name;
 	this.latLng = locationList.latLng;
+	this.tag = locationList.tag
 	this.marker = null;
 }
+
 var googleMap;
 var locations = [];
 var markers = [];
 var locationList = [
-	{name: 'Basil Thai', latLng: {lat: 40.422848654474635,lng: -86.90782070159912}},
-	{name: 'Chipotle',latLng: {lat: 40.42362457637239,lng: -86.9071501493454}},
-	{name: 'Blue Nile',latLng: {lat: 40.4245270847936,lng: -86.90841615200043}},
-	{name: 'Maru',latLng: {lat: 40.42450258246246,lng: -86.90679609775543}}, 
-	{name: 'Town and Gown',latLng: {lat: 40.42286090594257,lng: -86.90416753292084}}, 
-	{name: 'Oishi',latLng: {lat: 40.42146014031933,lng: -86.90384566783905}}
+	{name: 'Basil Thai', latLng: {lat: 40.422848654474635,lng: -86.90782070159912}, tag: 'restaurant'},
+	{name: 'Chipotle',latLng: {lat: 40.42362457637239,lng: -86.9071501493454}, tag: 'restaurant'},
+	{name: 'Blue Nile',latLng: {lat: 40.4245270847936,lng: -86.90841615200043}, tag: 'restaurant'},
+	{name: 'Maru',latLng: {lat: 40.42450258246246,lng: -86.90679609775543}, tag: 'restaurant'}, 
+	{name: 'Town and Gown',latLng: {lat: 40.42286090594257,lng: -86.90416753292084}, tag: 'restaurant'}, 
+	{name: 'Oishi',latLng: {lat: 40.42146014031933,lng: -86.90384566783905}, tag: 'restaurant'}
 	];
 
 locationList.forEach(function(place) {
 	locations.push(new Place(place));
 });
+//Wikipedia API
+var HTMLinfoWindow = '<div>%data%</div>';
+var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + locations.tag + '&format=json&callback=wikiCallback';
+$.ajax({
+	url: wikiUrl,
+	dataType: "jsonp",
+	success: function(response) {
+		// console.log(locations);
+		var articleList = response[1];
 
+		for(var i = 0; i < locations.length; i++) {
+			var url = 'http://en.wikipedia.org/wiki/' + locations[i].tag;
+			HTMLinfoWindow = HTMLinfoWindow.replace('%data%', url);
+		}
+	}
+})
 function populateInfoWindow(marker, infowindow) {
 	// Check to make sure the infowindow is not already opened on this marker.
 	if (infowindow.marker != marker) {
 		infowindow.marker = marker;
-		infowindow.setContent('<div>' + marker.name + '</div>');
+		infowindow.setContent(HTMLinfoWindow);
 		infowindow.open(map, marker);
+
 		// Make sure the marker property is cleared if the infowindow is closed.
 		infowindow.addListener('closeclick', function() {
 			infowindow.setMarker = null;
@@ -69,15 +87,18 @@ var koViewModel = function(map, locationList) {
 			position: locations[i].latLng,
 			name: locations[i].name,
 			animation: google.maps.Animation.DROP
+			
 		});
 		// console.log(i);
-
+		//marker.addListener('click', toggleBounce);
 
 		markers.push(marker);
 		marker.addListener('click', function() {
 			populateInfoWindow(this, largeInfowindow);
+			
 		});
 	}
+		
 
 	//Takes in input and handles filtering
 	self.valueFake = ko.observable("");
