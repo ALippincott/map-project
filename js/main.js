@@ -1,8 +1,8 @@
 function Place(locationList) {
-		this.name = locationList.name;
-		this.latLng = locationList.latLng;
-		this.marker = null;
-	}
+	this.name = locationList.name;
+	this.latLng = locationList.latLng;
+	this.marker = null;
+}
 var googleMap;
 var locations = [];
 var markers = [];
@@ -16,74 +16,82 @@ var locationList = [
 	];
 
 locationList.forEach(function(place) {
-		locations.push(new Place(place));
-	});
+	locations.push(new Place(place));
+});
 
 function populateInfoWindow(marker, infowindow) {
-        // Check to make sure the infowindow is not already opened on this marker.
-        if (infowindow.marker != marker) {
-          infowindow.marker = marker;
-          infowindow.setContent('<div>' + marker.name + '</div>');
-          infowindow.open(map, marker);
-          // Make sure the marker property is cleared if the infowindow is closed.
-          infowindow.addListener('closeclick',function(){
-            infowindow.setMarker = null;
-          });
-      }
-  }
+	// Check to make sure the infowindow is not already opened on this marker.
+	if (infowindow.marker != marker) {
+		infowindow.marker = marker;
+		infowindow.setContent('<div>' + marker.name + '</div>');
+		infowindow.open(map, marker);
+		// Make sure the marker property is cleared if the infowindow is closed.
+		infowindow.addListener('closeclick', function() {
+			infowindow.setMarker = null;
+		});
+	}
+}
 
 //View Model
 var koViewModel = function(map, locationList) {
 	var self = this;
-	self.allPlaces = locations;	
+	self.allPlaces = ko.observableArray();
+	
+	for(i=0; i < 7; i++){
+		self.allPlaces[i] = locations[i];
+		// console.log(self.allPlaces[i]);
+	}
+	var filter;
 	//Creates seperate visible array for list
-	 self.visiblePlaces = ko.observableArray();
-	 
-	 var markerOptions;
-	 var infowindow = [];
-	 var largeInfowindow = new google.maps.InfoWindow();
-	 self.visiblePlaces().forEach(function(place){
-	 	markerOptions = {
+	self.visiblePlaces = ko.observableArray();
+
+	var markerOptions;
+	var infowindow = [];
+	var largeInfowindow = new google.maps.InfoWindow();
+	self.visiblePlaces().forEach(function(place) {
+		markerOptions = {
 			map: googleMap,
 			position: place.latLng,
 			animation: google.maps.Animation.DROP
-			};
-			place.marker = new google.maps.Marker(markerOptions);
-			markers.push(place.marker);
-			
-			
+		};
+		place.marker = new google.maps.Marker(markerOptions);
+		markers.push(place.marker);
+
+
+	});
+
+
+	for (var i = 0; i < locations.length; i++) {
+		var marker = new google.maps.Marker({
+			map: googleMap,
+			position: locations[i].latLng,
+			name: locations[i].name,
+			animation: google.maps.Animation.DROP
 		});
-		
-	
-for (var i = 0; i < locations.length; i ++){
-	var marker = new google.maps.Marker({
-        map: googleMap,
-        position: locations[i].latLng,
-        name: locations[i].name,
-        animation: google.maps.Animation.DROP
-    });
-   // console.log(i);
-	
-	
-	markers.push(marker);	
-	marker.addListener('click', function() {
-				populateInfoWindow(this, largeInfowindow);
-			});
-}
+		// console.log(i);
 
-	 //Takes in input and handles filtering
-	 self.attemptedValue = ko.pureComputed({
-	 	read: "",
-	 	write: function(){
-	 		self.allPlaces.forEach(function(place) {
-	 			self.visiblePlaces.push(place);
-			});
-	 	}
-	 })
-			
-	};
-	
 
+		markers.push(marker);
+		marker.addListener('click', function() {
+			populateInfoWindow(this, largeInfowindow);
+		});
+	}
+
+	//Takes in input and handles filtering
+	self.valueFake = ko.observable("");
+	self.filter = ko.pureComputed({
+		read: self.valueFake,
+		write: function(value) {
+			for(i = 0; i < self.allPlaces.length; i++){
+				if(self.allPlaces[i].name.includes(filter)) {
+					console.log("yes");
+				}
+			};
+		}
+
+	});
+	
+};
 
 //Creates Map
 function initMap() {
@@ -98,9 +106,9 @@ function initMap() {
 
 //calls map creation when window is loaded and applys bindings
 google.maps.event.addDomListener(window, 'load', function() {
-	
-	googleMap = initMap();
-	ko.applyBindings( new koViewModel(googleMap, locationList));
 
-	
+	googleMap = initMap();
+	ko.applyBindings(new koViewModel(googleMap, locationList));
+
+
 });
