@@ -95,10 +95,7 @@ var koViewModel = function(map, locationList) {
 		//marker.addListener('click', toggleBounce);
 
 		markers.push(marker);
-		marker.addListener('click', function() {
-			populateInfoWindow(this, largeInfowindow);
-			
-		});
+		marker.addListener('click', populateInfoWindow(this, largeInfowindow));
 	}
 		
 
