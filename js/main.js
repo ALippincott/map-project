@@ -50,27 +50,40 @@ function populateInfoWindow(marker, infowindow) {
 		});
 	}
 }
+//Creates and stores markers
+	
+	for (var i = 0; i < locations.length; i++) {
+		var marker = new google.maps.Marker({
+			map: googleMap,
+			position: locations[i].latLng,
+			name: locations[i].name,
+			animation: google.maps.Animation.DROP
+			
+		});
+		 marker.addListener('click', handleclick);
+        markers.push(marker);
+	function handleclick() {
+		this.setAnimation(google.maps.Animation.BOUNCE);
+        populateInfoWindow(this, largeInfowindow);
+	}
 
-//View Model
+	
+
+		//View Model
 var koViewModel = function(map, locationList) {
 	var self = this;
 	self.allPlaces = ko.observableArray();
-	
+	query: ko.observable('')
 	for(i=0; i < 7; i++){
 		self.allPlaces[i] = locations[i];
 		// console.log(self.allPlaces[i]);
 	}
-	var filter;
-	//Creates seperate visible array for list
-	self.visiblePlaces = ko.observableArray();
-	for(i=0;i<locations.length;i++){
-		self.visiblePlaces.push(locations[i]);
-	}
+	
 	var markerOptions;
 	var infowindow = [];
 	var largeInfowindow = new google.maps.InfoWindow();
 	//Creates marker and pushes it to the markers array
-	self.visiblePlaces().forEach(function(place) {
+	self.allPlaces().forEach(function(place) {
 		markerOptions = {
 			map: googleMap,
 			position: place.latLng,
@@ -83,14 +96,6 @@ var koViewModel = function(map, locationList) {
 	});
 
 
-	for (var i = 0; i < locations.length; i++) {
-		var marker = new google.maps.Marker({
-			map: googleMap,
-			position: locations[i].latLng,
-			name: locations[i].name,
-			animation: google.maps.Animation.DROP
-			
-		});
 		// console.log(i);
 		//marker.addListener('click', toggleBounce);
 
@@ -100,20 +105,40 @@ var koViewModel = function(map, locationList) {
 		
 
 	//Takes in input and handles filtering
-	self.valueFake = ko.observable("");
-	self.filter = ko.pureComputed({
-		read: self.valueFake,
-		write: function(value) {
-			for(i = 0; i < self.allPlaces.length; i++){
-				if(!self.allPlaces[i].name.includes(filter)) {
-					self.visiblePlaces.pop(self.allPlaces[i]);
+
+};
+var viewModel = {
+		//observable array of locations
+		locations: ko.observableArray(locationList),
+
+		//search query
+		query: ko.observable(''),
+
+		//filter based on search query
+		search: function(value) {
+			viewModel.locations.removeAll();
+			for(var x in locationList) {
+	  			if(locationList[x].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+	    			viewModel.locations.push(locationList[x]);
+	  			}
+			}
+
+			//remove all markers
+			for (i = 0; i < markers.length; i++) {
+				markers[i].setMap(null);
+			}
+
+			//only show filtered markers
+			for (i = 0; i < viewModel.locations().length; i++) {
+				for (var k = 0; k < markers.length; k++) {
+					if (viewModel.locations()[i].name === markers[k].title) {
+						markers[k].setMap(map);
+					}
 				}
 			}
 		}
 
-	});
-	
-};
+	};
 
 //Creates Map
 function initMap() {
