@@ -2,8 +2,10 @@
 <html>
 	<head>
 		<meta charset = utf-8>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Neighborhood Map Project</title>
-		<script async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCtlxQi9MDmEeLx2lvCu2z97CbFn4c3qvk" type='text/javascript'></script>
+		<script  type='text/javascript' src='js/error.js'></script>
+		<script async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCtlxQi9MDmEeLx2lvCu2z97CbFn4c3qvk" type='text/javascript' onerror="googleError()"></script>
 		<script type='text/javascript' src='knockout-3.4.2.js'></script>
 		<script  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		
@@ -34,7 +36,7 @@
 				<span></span>
 				<span></span>
 				<ul id="menu" data-bind="foreach: locations">
-					<a href="#"><li data-bind="text: name"></li></a>
+					<a href="#"><li data-bind="text: name, click: openInfoWin"></li></a>
 				</ul>
 			</div>
 			<div class="links">
@@ -47,7 +49,7 @@
 		
 		<div id="map"></div>
 
-	<script  type='text/javascript' src='js/example.js'></script>
+	<script  type='text/javascript' src='js/main.js'></script>
 		  
 
 	</body>
