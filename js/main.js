@@ -63,7 +63,6 @@ function populateInfoWindow(marker, infowindow) {
 		 marker.addListener('click', handleclick);
         markers.push(marker);
 	function handleclick() {
-		this.setAnimation(google.maps.Animation.BOUNCE);
         populateInfoWindow(this, largeInfowindow);
 	}
 
@@ -96,8 +95,6 @@ var koViewModel = function(map, locationList) {
 	});
 
 
-		// console.log(i);
-		//marker.addListener('click', toggleBounce);
 
 		markers.push(marker);
 		marker.addListener('click', populateInfoWindow(this, largeInfowindow));
